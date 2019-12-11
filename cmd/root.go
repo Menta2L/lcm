@@ -83,7 +83,8 @@ func initConfig() {
 
 		// Search config in home directory with name ".lcm" (without extension).
 		viper.AddConfigPath(DefaultLcmDir)
-		viper.SetConfigName(".lcm")
+		//viper.SetConfigName(".lcm")
+		viper.SetConfigName("config")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match

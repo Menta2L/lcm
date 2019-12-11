@@ -1,10 +1,11 @@
 syntax = "proto3";
 
-package v1;
+package api;
 
 service IssuerService {
   rpc CreateIssuer(IssuerRequest) returns (IssuerResponse) {};
   rpc ListIssuers(ListIssuerRequest) returns (ListIssuerCollection) {};
+  rpc Ping (PingRequest) returns (PingResponse) { }
 }
 message ListIssuerRequest {}
 message ListIssuerCollection {
@@ -42,3 +43,14 @@ message GoogleCloudSolver {
 message SelfSignedIssuerRequest {
   string name = 1;
 }
+
+// A request for ping
+message PingRequest {
+    string msg = 1;
+}
+
+// A response for ping
+message PingResponse {
+    string msg = 2;
+}
+
