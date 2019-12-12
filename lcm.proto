@@ -1,0 +1,67 @@
+syntax = "proto3";
+option go_package = "github.com/menta2l/lcm";
+package lcm;
+
+message IssuerResponse {}
+message IssuerRequest {
+  string name = 1;
+  oneof dns_solvers {
+     LetsEncryptIssuerRequest lets_encrypt_issuer = 2;
+     SelfSignedIssuerRequest self_signed_issuer = 3;
+  }
+}
+
+message LetsEncryptIssuerRequest {
+  string email = 1;
+  string server = 2;
+  string solverRef = 3;
+}
+message Solver {
+  string email = 1;
+  oneof dns_solvers {
+     CloudFlareSolver cloud_flare_solver = 2;
+     GoogleCloudSolver google_cloud_solver = 3;
+  }
+}
+message SolverShort {
+  string name = 1;
+  string type = 2;
+}
+message CloudFlareSolver {
+  string apikey = 2;
+}
+message GoogleCloudSolver {
+  bytes sa = 2;
+  string project = 3;
+}
+message SelfSignedIssuerRequest {
+}
+message CreateSolverRequest {
+    Solver solver =1;
+}
+message CreateSolverResponse {}
+message ListSolversRequest {}
+message ListSolversResponse {
+  repeated SolverShort solver =1;
+}
+// Request for a certificate to be issued
+message CertificateRequest {
+    string issuer_ref = 1;
+    repeated string domain = 2;
+}
+message CertificateResponse {
+    // A blob containing the cert
+    string certificate = 1;
+    // A blob containing the private key
+    string privateKey = 2;
+    // The DNS names this certificate is valid for
+    repeated string domains = 3;
+}
+
+service Lcm {
+  rpc Listsolvers(ListSolversRequest) returns (ListSolversResponse) {};
+  rpc CreateSolver(CreateSolverRequest) returns (CreateSolverResponse) {};
+
+  rpc CreateIssuer(IssuerRequest) returns (IssuerResponse) {};
+  rpc RequestCertificate(CertificateRequest) returns (CertificateResponse) {};
+}
