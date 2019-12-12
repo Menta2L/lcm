@@ -24,7 +24,7 @@ message LetsEncryptIssuerRequest {
   string name = 1;
   string email = 2;
   string server = 3;
-  repeated Solver solvers = 4;
+  Solver solver = 4;
 }
 message Solver {
   oneof dns_solvers {

@@ -3,16 +3,21 @@ package client
 import (
 	"context"
 	"errors"
+	"os"
+	"time"
+
 	"github.com/menta2l/lcm/pkg/api"
 	"github.com/menta2l/lcm/pkg/config"
 	"github.com/xenolf/lego/log"
 	"google.golang.org/grpc"
-	"os"
-	"time"
 )
 
+type Client struct {
+	client api.IssuerServiceClient
+}
+
 // StartClient starts a client instance with a client config and a user agent
-func StartClient(config *config.ClientConfig, userAgent string) {
+func StartClient(config *config.ClientConfig, userAgent string) api.IssuerServiceClient {
 	log.Infof("Initializing client")
 
 	// Check if the config is valid
@@ -33,7 +38,7 @@ func StartClient(config *config.ClientConfig, userAgent string) {
 		os.Exit(1)
 	}
 
-	defer conn.Close()
+	//defer conn.Close()
 
 	// Create client from connection
 	client := api.NewIssuerServiceClient(conn)
@@ -47,6 +52,7 @@ func StartClient(config *config.ClientConfig, userAgent string) {
 	}
 
 	log.Infof("Successfully pinged lcm server")
+	return client
 }
 
 func validateConfig(c *config.ClientConfig) error {

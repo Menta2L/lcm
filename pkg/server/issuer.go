@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+
 	"github.com/menta2l/lcm/pkg/api"
 	"github.com/menta2l/lcm/pkg/config"
 	"github.com/mholt/certmagic"
@@ -20,7 +21,12 @@ func NewIssuerService(config *config.ServerConfig) *IssuerService {
 
 }
 func (s *IssuerService) CreateIssuer(ctx context.Context, in *api.IssuerRequest) (r *api.IssuerResponse, err error) {
-	return
+	if in.GetSelfSignedIssuer() != nil {
+		log.Infof("Creating new self signed issuer %s", in.GetSelfSignedIssuer().GetName())
+	} else {
+		log.Infof("Creating acme issuer")
+	}
+	return &api.IssuerResponse{}, nil
 
 }
 func (s *IssuerService) ListIssuers(context.Context, *api.ListIssuerRequest) (r *api.ListIssuerCollection, err error) {
