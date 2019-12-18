@@ -1,2 +1,0 @@
-# lcm
-Local certificate manager
