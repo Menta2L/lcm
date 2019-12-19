@@ -55,7 +55,7 @@ var upCmd = &cobra.Command{
 
 func init() {
 	upCmd.PersistentFlags().StringP("address", "", "http://127.0.0.1:8200", "Vault address")
-	upCmd.PersistentFlags().StringP("token", "", "s.0RcL1Nw4Ck6UR2zbUSXM6MqP", "Vault token")
+	upCmd.PersistentFlags().StringP("token", "", "s.ADwFgkioiRwInzs3HFbBW7TK", "Vault token")
 	bindPrefixedFlags(upCmd, "vault", "address", "token")
 
 	RootCmd.AddCommand(upCmd)

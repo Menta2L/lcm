@@ -5,11 +5,15 @@ import (
 	"fmt"
 
 	"github.com/lileio/logr"
+	"github.com/menta2l/lcm/pkg/models"
 )
 
 var JobQueue = make(chan CertReq, 10)
 
 type CertReq struct {
+	Cert     models.Cert
+	Issuer   models.Issuer
+	Solver   models.Solver
 	Domains  []string
 	Renewal  bool
 	Attempts int

@@ -6,6 +6,7 @@ import (
 
 	"github.com/menta2l/lcm"
 	"github.com/menta2l/lcm/pkg/vault"
+	"github.com/mitchellh/mapstructure"
 )
 
 type Cert struct {
@@ -35,7 +36,7 @@ func (c *Cert) Validate() (bool, error) {
 	if _, ok := c.data["name"]; !ok {
 		return false, errors.New("name parameter is required")
 	}
-	c.name = c.data["name"].(string)
+	c.Name = c.data["name"].(string)
 	if c.issuerRef == "" {
 		return false, errors.New("issuerRef  parameter is required")
 	}
@@ -44,4 +45,13 @@ func (c *Cert) Validate() (bool, error) {
 	}
 
 	return true, nil
+}
+func (c *Cert) GetIssuer() (*Issuer, error) {
+	secret, err := c.client.Read("kv/lcm/issuers/" + c.issuerRef)
+	if err != nil {
+		return nil, err
+	}
+	var issuer Issuer
+	mapstructure.Decode(secret.Data["data"], &issuer)
+	return &issuer, nil
 }

@@ -4,6 +4,8 @@ go 1.13
 
 require (
 	github.com/fatih/structs v1.1.0
+	github.com/go-acme/lego v2.7.2+incompatible // indirect
+	github.com/go-acme/lego/v3 v3.2.0
 	github.com/golang/protobuf v1.3.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0
 	github.com/grpc-ecosystem/grpc-opentracing v0.0.0-20180507213350-8e809c8a8645
@@ -13,6 +15,7 @@ require (
 	github.com/lileio/lile/v2 v2.2.13
 	github.com/lileio/logr v1.1.0
 	github.com/lileio/pubsub/v2 v2.4.0
+	github.com/mitchellh/mapstructure v1.1.2
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/ryanuber/columnize v2.1.0+incompatible
 	github.com/spf13/cobra v0.0.5

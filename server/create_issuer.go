@@ -17,5 +17,6 @@ func (s LcmServer) CreateIssuer(ctx context.Context, r *lcm.IssuerRequest) (*emp
 	if err != nil {
 		return nil, err
 	}
+
 	return &empty.Empty{}, nil
 }
